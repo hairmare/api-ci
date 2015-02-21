@@ -47,6 +47,11 @@ class Project
     protected $masterVersion;
 
     /**
+     * @MongoDB\Hash
+     */
+    protected $versions = array();
+
+    /**
      * @MongoDB\ReferenceMany(targetDocument="DocumentationFile")
      */
     protected $docFiles;
@@ -254,4 +259,35 @@ class Project
         $this->docFiles->clear();
     }
 
+    /**
+     * Add version
+     *
+     * @param string $version
+     */
+    public function addVersion($version)
+    {
+        $this->versions[] = $version;
+    }
+
+    /**
+     * Set versions
+     *
+     * @param hash $versions
+     * @return self
+     */
+    public function setVersions($versions)
+    {
+        $this->versions = $versions;
+        return $this;
+    }
+
+    /**
+     * Get versions
+     *
+     * @return hash $versions
+     */
+    public function getVersions()
+    {
+        return $this->versions;
+    }
 }

@@ -75,9 +75,12 @@ class Worker
         $directory = new \RecursiveDirectoryIterator($targetDir);
         $iterator = new \RecursiveIteratorIterator($directory);
         $project->clearDocFiles();
+        $versions = array();
         foreach ($iterator AS $file) {
-
             if ($file->isFile() && $file->getFilename() !== '.html') {
+                $parts = explode('/', str_replace($this->targetDir.'/', '', $file->getPathname()));
+                array_key_exists(2, $parts) && $versions[$parts[2]] = true;
+
                 $file = new \Symfony\Component\HttpFoundation\File\File($file);
 
                 $docFile = new DocumentationFile;
@@ -96,6 +99,9 @@ class Worker
                 $project->addDocFile($docFile);
             }
         }
+        unset($versions['develop']);
+        $versions['develop'] = true;
+        $project->setVersions(array_keys($versions));
         $this->dm->flush();
     }
 }

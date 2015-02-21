@@ -27,4 +27,33 @@ class DefaultController extends Controller
         $response->headers->set('Content-Type', $data->getMimeType());
         return $response;
     }
+
+    /**
+     * @Route("/{owner}/{project}", name="project")
+     */
+    public function projectAction($owner, $project)
+    {
+        $repository = $this->container->get('project.repository');
+        $project = $repository->findOneBy(array('name' => $project));
+        $versions = array();
+        foreach ($project->getVersions() as $version) {
+            $versions[] = array(
+                'name' => $version, 
+                'href' => $this->container->get('router')->generate('api_docs', array(
+                    'path' => sprintf('%s/%s/%s/index.html', $project->getOwner()->getUsername(), $project->getName(), $version)
+                ))
+            );
+        }
+        return $this->render('default/project.html.twig', array(
+            'project' => array(
+                'name' => $project->getName(),
+                'masterVersion' => $project->getMasterVersion(),
+                'owner' => array(
+                    'name' => $project->getOwner()->getUsername(),
+                    'href' => $this->container->get('router')->generate('homepage')
+                )
+            ),
+            'versions' => $versions
+        ));
+     }
 }
