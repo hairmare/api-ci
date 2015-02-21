@@ -1,9 +1,31 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html
 parameters:
-#    parameter_name: value
+    worker_stage_dir: %kernel.root_dir%/stage
+    worker_target_dir: %kernel.root_dir%/../web/docs
+    sami_cmd: 'php ../../../../bin/sami.php update ../../../../sami.config.php'
 
 services:
+    git: 
+        class: PHPGit\Git
+
+    worker:
+        class: AppBundle\Worker
+        arguments:
+            - @project.repository
+            - @doctrine_mongodb.odm.default_document_manager
+            - @git
+            - %worker_stage_dir%
+            - %worker_target_dir%
+            - %sami_cmd%
+
+    project.repository:
+        class: Doctrine\ODM\MongoDB\DocumentRepository
+        factory_service: doctrine_mongodb
+        factory_method:  getRepository
+        arguments:
+            - 'AppBundle:Project'
+
     sonata.admin.project:
         class: AppBundle\Admin\ProjectAdmin
         tags:

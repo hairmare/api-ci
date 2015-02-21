@@ -42,6 +42,16 @@ class Project
     protected $githubName;
 
     /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $masterVersion;
+
+    /**
+     * @MongoDB\ReferenceMany(targetDocument="DocumentationFile")
+     */
+    protected $docFiles;
+
+    /**
      * Hook on pre-persist operations
      * @MongoDB\PrePersist
      */
@@ -178,5 +188,61 @@ class Project
     public function getOwner()
     {
         return $this->owner;
+    }
+
+    /**
+     * Set masterVersion
+     *
+     * @param string $masterVersion
+     * @return self
+     */
+    public function setMasterVersion($masterVersion)
+    {
+        $this->masterVersion = $masterVersion;
+        return $this;
+    }
+
+    /**
+     * Get masterVersion
+     *
+     * @return string $masterVersion
+     */
+    public function getMasterVersion()
+    {
+        return $this->masterVersion;
+    }
+    public function __construct()
+    {
+        $this->docFiles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add docFile
+     *
+     * @param AppBundle\Document\DocumentationFile $docFile
+     */
+    public function addDocFile(\AppBundle\Document\DocumentationFile $docFile)
+    {
+        $this->docFiles[] = $docFile;
+    }
+
+    /**
+     * Remove docFile
+     *
+     * @param AppBundle\Document\DocumentationFile $docFile
+     */
+    public function removeDocFile(\AppBundle\Document\DocumentationFile $docFile)
+    {
+        $this->docFiles->removeElement($docFile);
+    }
+
+    /**
+     * Get docFiles
+     *
+     * @return Doctrine\Common\Collections\Collection $docFiles
+     */
+    public function getDocFiles()
+    {
+        return $this->docFiles;
     }
 }

@@ -25,7 +25,9 @@
         "sonata-project/admin-bundle": "~2.2",
         "sonata-project/core-bundle": "~2.2",
         "sonata-project/block-bundle": "~2.2",
-        "sonata-project/user-bundle": "~2.2"
+        "sonata-project/user-bundle": "~2.2",
+        "kzykhys/git": "0.1.*",
+        "sami/sami": "~3.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
