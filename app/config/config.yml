@@ -5,7 +5,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -64,7 +64,7 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
 
-# MOngodb Configuration
+# MongoDB Configuration
 doctrine_mongodb:
     connections:
         default:
@@ -82,3 +82,9 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# FOS UserBundle Configuration
+fos_user:
+    db_driver: mongodb
+    firewall_name: main
+    user_class: \ApiCi\UserBundle\Document\User
