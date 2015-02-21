@@ -4,7 +4,7 @@ imports:
     - { resource: services.yml }
 
 framework:
-    #esi:             ~
+   #esi:             ~
     translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
@@ -87,4 +87,38 @@ swiftmailer:
 fos_user:
     db_driver: mongodb
     firewall_name: main
-    user_class: \ApiCi\UserBundle\Document\User
+    user_class: Application\Sonata\UserBundle\Document\User
+    group:
+        group_class: Application\Sonata\\UserBundle\Document\Group
+    #    #group_manager: sonata.user.mongodb.group_manager
+    #service:
+    #    #user_manager: sonata.user.mongodb.user_manager
+
+# Sonata User Configuration
+sonata_user:
+    security_acl: true
+    manager_type: mongodb
+    #class:
+    #    user: \ApiCi\UserBundle\Document\User
+    #    group: ApiCi\UserBundle\Document\Group
+
+# Sonata Block Configuration
+sonata_block:
+    default_contexts: [sonata_page_bundle]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+
+        #sonata.admin_doctrine_orm.block.audit:
+        #    contexts:   [admin]
+
+        sonata.block.service.text:
+        sonata.block.service.rss:
+
+        # Some specific block from the SonataMediaBundle
+        #sonata.media.block.media:
+        #sonata.media.block.gallery:
+        #sonata.media.block.feature_media:
+        
+        sonata.user.block.menu:
+        sonata.user.block.account:
