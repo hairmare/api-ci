@@ -4,6 +4,13 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    sonata.admin.project:
+        class: AppBundle\Admin\ProjectAdmin
+        tags:
+            - { name: sonata.admin, manager_type: doctrine_mongodb, group: "Content", label: "Project" }
+        arguments:
+            - ~
+            - AppBundle\Document\Project
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle]]

@@ -1,14 +1,13 @@
 <?php
 
-namespace Application\Sonata\UserBundle\Document;
+namespace AppBundle\Document;
 
-use FOS\UserBundle\Document\Group as BaseGroup;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  * @MongoDB\Document
  */
-class Group extends BaseGroup
+class Project
 {
     /**
      * @MongoDB\Id(strategy="auto")
@@ -26,6 +25,21 @@ class Group extends BaseGroup
      * @var \DateTime
      */
     protected $updatedAt;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $name;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Application\Sonata\UserBundle\Document\User")
+     */
+    protected $owner;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $githubName;
 
     /**
      * Hook on pre-persist operations
@@ -98,5 +112,71 @@ class Group extends BaseGroup
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set githubName
+     *
+     * @param string $githubName
+     * @return self
+     */
+    public function setGithubName($githubName)
+    {
+        $this->githubName = $githubName;
+        return $this;
+    }
+
+    /**
+     * Get githubName
+     *
+     * @return string $githubName
+     */
+    public function getGithubName()
+    {
+        return $this->githubName;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return self
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string $name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set owner
+     *
+     * @param Application\Sonata\UserBundle\Document\User $owner
+     * @return self
+     */
+    public function setOwner(\Application\Sonata\UserBundle\Document\User $owner)
+    {
+        $this->owner = $owner;
+        return $this;
+    }
+
+    /**
+     * Get owner
+     *
+     * @return Application\Sonata\UserBundle\Document\User $owner
+     */
+    public function getOwner()
+    {
+        return $this->owner;
     }
 }

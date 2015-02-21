@@ -17,13 +17,13 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @MongoDB\Field(type="date_time")
+     * @MongoDB\Field(type="date")
      * @var \DateTime
      */
     protected $createdAt;
 
     /**
-     * @MongoDB\Field(type="date_time")
+     * @MongoDB\Field(type="date")
      * @var \DateTime
      */
     protected $updatedAt;
@@ -59,7 +59,7 @@ class User extends BaseUser
     protected $phone;
 
     /**
-     * @MongoDB\Field(type="date_time")
+     * @MongoDB\Field(type="date")
      * @var \DateTime
      */
     protected $dateOfBirth;
@@ -199,10 +199,10 @@ class User extends BaseUser
     /**
      * Set createdAt
      *
-     * @param date_time $createdAt
+     * @param DateTime $createdAt
      * @return self
      */
-    public function setCreatedAt(\date_time $createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
@@ -211,7 +211,7 @@ class User extends BaseUser
     /**
      * Get createdAt
      *
-     * @return date_time $createdAt
+     * @return DateTime $createdAt
      */
     public function getCreatedAt()
     {
@@ -221,10 +221,10 @@ class User extends BaseUser
     /**
      * Set updatedAt
      *
-     * @param date_time $updatedAt
+     * @param DateTime $updatedAt
      * @return self
      */
-    public function setUpdatedAt(\date_time $updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
         return $this;
@@ -233,7 +233,7 @@ class User extends BaseUser
     /**
      * Get updatedAt
      *
-     * @return date_time $updatedAt
+     * @return DateTime $updatedAt
      */
     public function getUpdatedAt()
     {
@@ -309,7 +309,7 @@ class User extends BaseUser
     /**
      * Set credentialsExpired
      *
-     * @param date_time $credentialsExpired
+     * @param DateTime $credentialsExpired
      * @return self
      */
     public function setCredentialsExpired($credentialsExpired)
@@ -321,7 +321,7 @@ class User extends BaseUser
     /**
      * Get credentialsExpired
      *
-     * @return date_time $credentialsExpired
+     * @return DateTime $credentialsExpired
      */
     public function getCredentialsExpired()
     {
@@ -507,10 +507,10 @@ class User extends BaseUser
     /**
      * Set dateOfBirth
      *
-     * @param date_time $dateOfBirth
+     * @param DateTime $dateOfBirth
      * @return self
      */
-    public function setDateOfBirth(\date_time $dateOfBirth)
+    public function setDateOfBirth(\DateTime $dateOfBirth)
     {
         $this->dateOfBirth = $dateOfBirth;
         return $this;
@@ -519,7 +519,7 @@ class User extends BaseUser
     /**
      * Get dateOfBirth
      *
-     * @return date_time $dateOfBirth
+     * @return DateTime $dateOfBirth
      */
     public function getDateOfBirth()
     {
