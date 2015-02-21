@@ -1,0 +1,6 @@
+vendor/
+!app/logs/.gitkeep
+app/logs/*
+!app/cache/.gitkeep
+app/cache/*
+composer.phar
