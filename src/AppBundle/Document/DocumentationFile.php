@@ -5,7 +5,7 @@ namespace AppBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * @MongoDB\EmbeddedDocument
+ * @MongoDB\Document
  */
 class DocumentationFile
 {
@@ -28,8 +28,14 @@ class DocumentationFile
 
     /**
      * @MongoDB\Field(type="string")
+     * @MongoDB\UniqueIndex
      */
     protected $name;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $mimeType;
 
     /**
      * @MongoDB\File
@@ -151,5 +157,27 @@ class DocumentationFile
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set mimeType
+     *
+     * @param string $mimeType
+     * @return self
+     */
+    public function setMimeType($mimeType)
+    {
+        $this->mimeType = $mimeType;
+        return $this;
+    }
+
+    /**
+     * Get mimeType
+     *
+     * @return string $mimeType
+     */
+    public function getMimeType()
+    {
+        return $this->mimeType;
     }
 }

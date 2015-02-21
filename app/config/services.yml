@@ -19,6 +19,13 @@ services:
             - %worker_target_dir%
             - %sami_cmd%
 
+    documentation_file.repository:
+        class: Doctrine\ODM\MongoDB\DocumentRepository
+        factory_service: doctrine_mongodb
+        factory_method:  getRepository
+        arguments:
+            - 'AppBundle:DocumentationFile'
+
     project.repository:
         class: Doctrine\ODM\MongoDB\DocumentRepository
         factory_service: doctrine_mongodb

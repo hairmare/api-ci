@@ -74,11 +74,22 @@ class Worker
 
         $directory = new \RecursiveDirectoryIterator($targetDir);
         $iterator = new \RecursiveIteratorIterator($directory);
-        foreach ($iterator AS $file)
-        {
+        $project->clearDocFiles();
+        foreach ($iterator AS $file) {
+
             if ($file->isFile() && $file->getFilename() !== '.html') {
+                $file = new \Symfony\Component\HttpFoundation\File\File($file);
+
                 $docFile = new DocumentationFile;
-                $docFile->setName(str_replace($this->targetDir.'/', '', $file->getRealPath()));
+                $docFile->setName(str_replace($this->targetDir.'/', '', $file->getPathname()));
+
+                $mimeType = $file->getMimeType();
+                if ($file->getExtension() == 'js') {
+                    $mimeType = 'application/javascript';
+                } elseif ($file->getExtension() == 'css') {
+                    $mimeType = 'text/css';
+                }
+                $docFile->setMimeType($mimeType);
                 $docFile->setFile($file->getRealPath());
 
                 $this->dm->persist($docFile);

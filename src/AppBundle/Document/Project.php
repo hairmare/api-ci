@@ -245,4 +245,13 @@ class Project
     {
         return $this->docFiles;
     }
+
+    /**
+     * Clear docFiles
+     */
+    public function clearDocFiles()
+    {
+        $this->docFiles->clear();
+    }
+
 }
