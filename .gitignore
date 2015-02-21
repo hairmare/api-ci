@@ -9,3 +9,6 @@ web/bundles/
 web/docs
 app/stage
 bin/sami.php
+web/css/
+web/js/
+bin/lessc
