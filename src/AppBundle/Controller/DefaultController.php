@@ -29,6 +29,14 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/{owner}", name="owner")
+     */
+    public function ownerAction($owner)
+    {
+        return $this->render('default/owner.html.twig');
+    }
+
+    /**
      * @Route("/{owner}/{project}", name="project")
      */
     public function projectAction($owner, $project)
@@ -50,7 +58,7 @@ class DefaultController extends Controller
                 'masterVersion' => $project->getMasterVersion(),
                 'owner' => array(
                     'name' => $project->getOwner()->getUsername(),
-                    'href' => $this->container->get('router')->generate('homepage')
+                    'href' => $this->container->get('router')->generate('owner', array('owner' => $project->getOwner()->getUsername()))
                 )
             ),
             'versions' => $versions

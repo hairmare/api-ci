@@ -8,11 +8,12 @@
     {% for version in versions %}
         <li>
             <a href="{{ version.href }}">
-        {% if project.masterVersion == version.name %}
-            <strong>{{ version.name }}</strong> (master)
-        {% else %}
-            {{ version.name }}
-        {% endif %}
+                {% if project.masterVersion == version.name %}
+                    <strong>{{ version.name }}</strong> (master)
+                {% else %}
+                    {{ version.name }}
+                {% endif %}
+            </a>
         </li>
     {% endfor %}
     </ul>
