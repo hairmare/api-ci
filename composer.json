@@ -44,7 +44,8 @@
         "braincrafted/bootstrap-bundle": "~2.0",
         "twbs/bootstrap": "~3.0",
         "jquery/jquery": "1.11.*",
-        "oyejorge/less.php": "~1.5"
+        "oyejorge/less.php": "~1.5",
+        "knplabs/knp-menu-bundle": "~2"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

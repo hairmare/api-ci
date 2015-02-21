@@ -10,7 +10,23 @@
         {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div class="container-fluid">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle"
+                        data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    {{ knp_menu_render('main', { 'style': 'navbar' }) }}
+                </div>
+            </nav>
+            {% block body %}{% endblock %}
+        </div>
         <script src="{{ asset('js/jquery.js') }}"></script>
         <script src="{{ asset('js/bootstrap.js') }}"></script
         {% block javascripts %}{% endblock %}
