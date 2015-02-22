@@ -10,9 +10,9 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 class DocumentationFile
 {
     /**
-     * @MongoDB\Id(strategy="auto")
+     * @MongoDB\Id(strategy="none")
      */
-    protected $id;
+    protected $name;
 
     /**
      * @MongoDB\Field(type="date")
@@ -25,12 +25,6 @@ class DocumentationFile
      * @var \DateTime
      */
     protected $updatedAt;
-
-    /**
-     * @MongoDB\Field(type="string")
-     * @MongoDB\UniqueIndex
-     */
-    protected $name;
 
     /**
      * @MongoDB\Field(type="string")
@@ -59,16 +53,6 @@ class DocumentationFile
     public function preUpdate()
     {
         $this->updatedAt = new \DateTime;
-    }
-
-    /**
-     * Get id
-     *
-     * @return id $id
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

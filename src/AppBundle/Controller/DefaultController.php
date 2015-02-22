@@ -22,6 +22,15 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/about", name="about")
+     */
+    public function aboutAction()
+    {
+        return $this->render('default/about.html.twig');
+    }
+
+
+    /**
      * @Route("/api/{path}", name="api_docs", requirements={"path"=".+"})
      */
     public function fileAction($path)
@@ -32,6 +41,25 @@ class DefaultController extends Controller
         $response = $this->render('default/file.twig', array('data' => $data->getFile()->getBytes()));
         $response->headers->set('Content-Type', $data->getMimeType());
         return $response;
+    }
+
+    /**
+     * @Route("/projects", name="projects")
+     */
+    public function projectsAction()
+    {
+        $repository = $this->container->get('project.repository');
+        $projects = array();
+        foreach ($repository->getRecentProjects(50) as $project) {
+            $projects[] = array(
+                'name' => $project->getName(),
+                'href' => $this->container->get('router')->generate('project', array(
+                    'owner' => $project->getOwner()->getUsername(),
+                    'project' => $project->getName()
+                ))
+            );
+        }
+        return $this->render('default/projects.html.twig', array('projects' => $projects));
     }
 
     /**

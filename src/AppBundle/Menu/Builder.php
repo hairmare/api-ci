@@ -61,6 +61,7 @@ class Builder
             $menu->addChild('Logout', array('route' => 'sonata_user_security_logout'));
         } else {
             $menu->addChild('Login', array('route' => 'sonata_user_security_login'));
+            $menu->addChild('Register', array('route' => 'sonata_user_registration_register'));
         }
 
         return $menu;
