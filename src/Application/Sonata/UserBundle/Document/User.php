@@ -155,6 +155,11 @@ class User extends BaseUser
 
     public static function getGenderList()
     {
+        return array(
+            'Male',
+            'Female',
+            'Other'
+        );
     }
     
     /**
