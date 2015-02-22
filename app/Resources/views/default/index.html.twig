@@ -1,5 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    Homepage.
+    <div class="container">
+        <div class="jumbotron">
+            <h1>We compile your PHP API for you</h1>
+            <p>Here at api-ci we want to make building searchable documentation from your inline comments a breeze. Just push to github and we will build some apidocs.</p>
+            <p><a class="btn btn-primary btn-lg" href="{{ path('about') }}" role="button">Learn more</a></p>
+        </div>
+        <div class="row">
+            {% for testimonial in testimonials %}
+            <div class="col-md-4">
+                <div class="well">
+                    {{ testimonial.text }}
+                    <div class="text-right">{{ testimonial.author }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
