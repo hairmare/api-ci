@@ -12,6 +12,8 @@ parameters:
     mongodb_host:      127.0.0.1
     mongodb_port:      27017
     mongodb_database:  api-ci
+    mongodb_user:      ~
+    mongodb_password:  ~
 
     mailer_transport:  smtp
     mailer_host:       127.0.0.1

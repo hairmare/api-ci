@@ -1,0 +1,15 @@
+vendor/
+!app/logs/.gitkeep
+app/logs/*
+!app/cache/.gitkeep
+app/cache/*
+composer.phar
+app/config/parameters.yml
+web/bundles/
+app/docs
+app/stage
+bin/sami.php
+web/css/
+web/js/
+bin/lessc
+web/fonts/

@@ -1,5 +1,6 @@
 imports:
     - { resource: parameters.yml }
+    - { resource: vcap.php }
     - { resource: security.yml }
     - { resource: services.yml }
 
@@ -71,8 +72,10 @@ doctrine:
 doctrine_mongodb:
     connections:
         default:
-            server: "mongodb://%mongodb_host%:%mongodb_port%"
-            options: {}
+            server: "mongodb://%mongodb_host%:%mongodb_port%/%mongodb_database%"
+            options:
+                username: "%mongodb_user%" 
+                password: "%mongodb_password%"
     default_database: "%mongodb_database%"
     document_managers:
         default:

@@ -45,7 +45,8 @@
         "twbs/bootstrap": "~3.0",
         "jquery/jquery": "1.11.*",
         "oyejorge/less.php": "~1.5",
-        "knplabs/knp-menu-bundle": "~2"
+        "knplabs/knp-menu-bundle": "~2",
+        "graviton/vcap-config-loader": "~0.2"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
@@ -74,7 +75,10 @@
         ]
     },
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin",
+        "github-oauth": {
+            "github.com": "e404bdf27d2529d3a3b94532ab79d019992315d6"
+        }
     },
     "extra": {
         "symfony-app-dir": "app",

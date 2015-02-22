@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0d9ce1942e775de638a1dd7325d31928",
+    "hash": "cfbaacc0db2442d17c3c948c481a524d",
     "packages": [
         {
             "name": "braincrafted/bootstrap-bundle",
@@ -1033,6 +1033,44 @@
             "time": "2014-12-16 13:45:01"
         },
         {
+            "name": "flow/jsonpath",
+            "version": "0.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FlowCommunications/JSONPath.git",
+                "reference": "b45607d5004679b494926d05faaed923e02a691d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FlowCommunications/JSONPath/zipball/b45607d5004679b494926d05faaed923e02a691d",
+                "reference": "b45607d5004679b494926d05faaed923e02a691d",
+                "shasum": ""
+            },
+            "require-dev": {
+                "peekmo/jsonpath": "dev-master",
+                "phpunit/phpunit": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Flow\\JSONPath": "src/",
+                    "Flow\\JSONPath\\Test": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Frank",
+                    "email": "stephen@flowsa.com"
+                }
+            ],
+            "description": "JSONPath implementation for parsing, searching and flattening arrays",
+            "time": "2015-02-07 15:19:56"
+        },
+        {
             "name": "friendsofsymfony/rest-bundle",
             "version": "1.5.3",
             "target-dir": "FOS/RestBundle",
@@ -1176,6 +1214,46 @@
                 "User management"
             ],
             "time": "2014-09-04 12:28:43"
+        },
+        {
+            "name": "graviton/vcap-config-loader",
+            "version": "v0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/libgraviton/vcap-config-loader.git",
+                "reference": "f3c5473684f41df7a4e408f37bf2240174d5404b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/libgraviton/vcap-config-loader/zipball/f3c5473684f41df7a4e408f37bf2240174d5404b",
+                "reference": "f3c5473684f41df7a4e408f37bf2240174d5404b",
+                "shasum": ""
+            },
+            "require": {
+                "flow/jsonpath": "0.2.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*",
+                "squizlabs/php_codesniffer": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Graviton\\Vcap\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL"
+            ],
+            "authors": [
+                {
+                    "name": "Lucas Bickel",
+                    "email": "lucas.bickel@swisscom.com"
+                }
+            ],
+            "description": "Load services config from a VCAP_SERVICES json definition.",
+            "time": "2015-02-22 04:52:00"
         },
         {
             "name": "incenteev/composer-parameter-handler",

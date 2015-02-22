@@ -1,0 +1,14 @@
+---
+applications:
+- name: api-ci
+  buildpack: https://github.com/dmikusa-pivotal/cf-php-build-pack.git
+  services:
+  - api-ci-mongodb
+  paths:
+  - composer.json
+  - composer.lock
+  - app/
+  - app/config/parameters.yml.dist
+  - src/
+  - web/
+  memory: 512M
