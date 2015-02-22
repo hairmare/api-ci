@@ -4,7 +4,7 @@
   "PHP_VERSION": "{PHP_55_LATEST}",
   "NGINX_VERSION": "{NGINX_17_LATEST}",
   "PHP_MODULES": ["cli", "fpm"],
-  "PHP_EXTENSIONS": ["bz2", "zlib", "curl", "mongo", "openssl"],
+  "PHP_EXTENSIONS": ["bz2", "zlib", "curl", "mongo", "openssl", "mbstring"],
   "WEBDIR": "web",
   "LIBDIR": ".",
   "ZEND_EXTENSIONS": ["xdebug"]
