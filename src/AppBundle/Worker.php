@@ -92,7 +92,7 @@ class Worker
         $project->clearDocFiles();
         $versions = array();
         foreach ($iterator AS $file) {
-            if ($file->isFile() && $file->getFilename() !== '.html') {
+            if ($file->isFile()) {
                 $parts = explode('/', str_replace($this->targetDir.'/', '', $file->getPathname()));
                 array_key_exists(2, $parts) && $versions[$parts[2]] = true;
 
