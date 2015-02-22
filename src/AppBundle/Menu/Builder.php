@@ -57,7 +57,6 @@ class Builder
         }
 
         if ($this->security->isGranted(array('ROLE_USER'))) {
-            $menu->addChild('My Profile', array('route' => 'sonata_user_profile_show'));
             $menu->addChild('Logout', array('route' => 'sonata_user_security_logout'));
         } else {
             $menu->addChild('Login', array('route' => 'sonata_user_security_login'));
