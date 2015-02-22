@@ -1,0 +1,17 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+        {% for project in projects %}
+            <tr>
+                <td><a href="{{ project.href }}">{{ project.name }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

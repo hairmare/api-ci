@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>{{ project.name }}</h2>
+    by: <a href="{{project.owner.href }}">{{ project.owner.name }}</a>
+    <h3>Versions</h3>
+    <ul>
+    {% for version in versions %}
+        <li>
+            <a href="{{ version.href }}">
+                {% if project.masterVersion == version.name %}
+                    <strong>{{ version.name }}</strong> (master)
+                {% else %}
+                    {{ version.name }}
+                {% endif %}
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

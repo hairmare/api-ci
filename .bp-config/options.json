@@ -1,0 +1,16 @@
+{
+  "ADMIN_EMAIL": "hairmare@purplehaze.ch",
+  "WEB_SERVER": "nginx",
+  "PHP_VERSION": "{PHP_55_LATEST}",
+  "NGINX_VERSION": "{NGINX_17_LATEST}",
+  "PHP_MODULES": ["cli", "fpm"],
+  "PHP_EXTENSIONS": ["bz2", "zlib", "curl", "mongo", "openssl", "mbstring"],
+  "WEBDIR": "web",
+  "LIBDIR": ".",
+  "APP_START_CMD": "app/console app:work",
+  "ZEND_EXTENSIONS": ["xdebug"],
+  "ADDITIONAL_PREPROCESS_CMDS": [
+    "php app/console doctrine:mongodb:mapping:info",
+    "echo 'Starting app next....'"
+  ]
+}

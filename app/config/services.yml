@@ -1,0 +1,80 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+    worker_stage_dir: %kernel.root_dir%/stage
+    worker_target_dir: %kernel.root_dir%/docs
+    worker_cache_dir: %kernel.root_dir%/cache/%kernel.environment%
+    sami_cmd: 'php ../../../../bin/sami.php update ../../../../sami.config.php'
+
+services:
+    git: 
+        class: PHPGit\Git
+
+    worker:
+        class: AppBundle\Worker
+        arguments:
+            - @project.repository
+            - @doctrine_mongodb.odm.default_document_manager
+            - @git
+            - %worker_stage_dir%
+            - %worker_target_dir%
+            - %worker_cache_dir%
+            - %sami_cmd%
+
+    documentation_file.repository:
+        class: Doctrine\ODM\MongoDB\DocumentRepository
+        factory_service: doctrine_mongodb
+        factory_method:  getRepository
+        arguments:
+            - 'AppBundle:DocumentationFile'
+
+    project.repository:
+        class: Doctrine\ODM\MongoDB\DocumentRepository
+        factory_service: doctrine_mongodb
+        factory_method:  getRepository
+        arguments:
+            - 'AppBundle:Project'
+
+    testimonial.repository:
+        class: Doctrine\ODM\MongoDB\DocumentRepository
+        factory_service: doctrine_mongodb
+        factory_method:  getRepository
+        arguments:
+            - 'AppBundle:Testimonial'
+
+    sonata.admin.project:
+        class: AppBundle\Admin\ProjectAdmin
+        tags:
+            - { name: sonata.admin, manager_type: doctrine_mongodb, group: "Content", label: "Project" }
+        arguments:
+            - ~
+            - AppBundle\Document\Project
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle]]
+
+    app.admin.testimonial:
+        class: AppBundle\Admin\TestimonialAdmin
+        arguments: [~, AppBundle\Document\Testimonial, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: doctrine_mongodb, group: "Content", label: Testimonial}
+
+    app.menu_builder:
+        class: AppBundle\Menu\Builder
+        arguments: ["@knp_menu.factory", "@project.repository", "@security.context"]
+
+    app.main_menu:
+        class: Knp\Menu\MenuItem # the service definition requires setting the class
+        factory_service: app.menu_builder
+        factory_method: createMainMenu
+        arguments: ["@request_stack"]
+        tags:
+            - { name: knp_menu.menu, alias: main } # The alias is what is used to retrieve the menu
+
+    app.navbar_right_menu:
+        class: Knp\Menu\MenuItem # the service definition requires setting the class
+        factory_service: app.menu_builder
+        factory_method: createNavbarRightMenu
+        arguments: ["@request_stack"]
+        tags:
+            - { name: knp_menu.menu, alias: navbarRight }

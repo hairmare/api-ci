@@ -1,0 +1,102 @@
+{
+    "name": "hairmare/api-ci",
+    "license": "AGPL",
+    "type": "project",
+    "description": "Online apidocs generator",
+    "autoload": {
+        "psr-0": { "": "src/", "SymfonyStandard": "app/" }
+    },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/jquery",
+                "version": "1.11.1",
+                "dist": {
+                    "url": "http://code.jquery.com/jquery-1.11.1.js",
+                    "type": "file"
+                }
+            }
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/symfony": "2.6.*",
+        "doctrine/orm": "~2.2,>=2.2.3,<2.5",
+        "doctrine/dbal": "<2.5",
+        "doctrine/doctrine-bundle": "~1.2",
+        "twig/extensions": "~1.0",
+        "symfony/assetic-bundle": "~2.3",
+        "symfony/swiftmailer-bundle": "~2.3",
+        "symfony/monolog-bundle": "~2.4",
+        "sensio/distribution-bundle": "~3.0,>=3.0.12",
+        "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
+        "incenteev/composer-parameter-handler": "~2.0",
+        "doctrine/mongodb-odm": "1.0.*@dev",
+        "doctrine/mongodb-odm-bundle": "3.0.*@dev",
+        "sonata-project/doctrine-mongodb-admin-bundle": "~2.3",
+        "sonata-project/admin-bundle": "~2.2",
+        "sonata-project/core-bundle": "~2.2",
+        "sonata-project/block-bundle": "~2.2",
+        "sonata-project/user-bundle": "~2.2",
+        "kzykhys/git": "0.1.*",
+        "sami/sami": "~3.0",
+        "braincrafted/bootstrap-bundle": "~2.0",
+        "twbs/bootstrap": "~3.0",
+        "jquery/jquery": "1.11.*",
+        "oyejorge/less.php": "~1.5",
+        "knplabs/knp-menu-bundle": "~2",
+        "graviton/vcap-config-loader": "~0.2"
+    },
+    "require-dev": {
+        "sensio/generator-bundle": "~2.3"
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "SymfonyStandard\\Composer::hookRootPackageInstall"
+        ],
+        "post-install-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
+            "Braincrafted\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::install",
+            "./app/console assetic:dump",
+            "cp vendor/sami/sami/Sami/Resources/themes/default/css/bootstrap-theme.min.css web/css",
+            "cp vendor/sami/sami/Sami/Resources/themes/default/css/sami.css web/css",
+            "cp vendor/sami/sami/Sami/Resources/themes/default/js/typeahead.min.js web/js"
+        ],
+        "post-update-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
+            "Braincrafted\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::install",
+            "./app/console assetic:dump",
+            "cp vendor/sami/sami/Sami/Resources/themes/default/css/bootstrap-theme.min.css web/css",
+            "cp vendor/sami/sami/Sami/Resources/themes/default/css/sami.css web/css",
+            "cp vendor/sami/sami/Sami/Resources/themes/default/js/typeahead.min.js web/js"
+        ]
+    },
+    "config": {
+        "bin-dir": "bin",
+        "github-oauth": {
+            "github.com": "e404bdf27d2529d3a3b94532ab79d019992315d6"
+        }
+    },
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-web-dir": "web",
+        "symfony-assets-install": "relative",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        },
+        "branch-alias": {
+            "dev-master": "2.6-dev"
+        }
+    }
+}
