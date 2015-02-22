@@ -29,9 +29,9 @@ class Worker
         }
         $run = true;
         while($run) {
-            $project = $this->repository->findOneBy(array(),array('updatedAt', 'DESC'));
-
-            $this->process($project);
+            foreach ($this->repository->findBy(array(),array('updatedAt', 'desc')) as $project) {
+                $this->process($project);
+            }
 
             $run = false;
         }
@@ -50,10 +50,10 @@ class Worker
         }
         if (!is_dir($stageDir)) {
             $this->git->clone(sprintf('https://github.com/%s.git', $project->getGithubName()), $stageDir);
-        } else {
-            $this->git->fetch->all();
         }
         $this->git->setRepository($stageDir);
+        $this->git->checkout('master');
+        $this->git->fetch->all();
 
         $project->setMasterVersion($this->git->describe->tags('master'));
 
