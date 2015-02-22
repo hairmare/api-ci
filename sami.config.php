@@ -25,7 +25,9 @@ $versions = GitVersionCollection::create($stageDir)
 ;
 
 return new Sami($iterator, array(
+    'theme'     => 'app',
     'versions'  => $versions,
     'build_dir' => $targetDir.'/%version%',
     'cache_dir' => $cacheDir.'/%version%',
+    'template_dirs' => array(__DIR__.'/app/Resources/Sami/themes'),
 ));
