@@ -1,8 +1,8 @@
 imports:
     - { resource: parameters.yml }
-    - { resource: vcap.php }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: vcap.php }
 
 framework:
    #esi:             ~

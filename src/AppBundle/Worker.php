@@ -29,12 +29,17 @@ class Worker
             mkdir($this->targetDir);
         }
         $run = true;
+        $runs = 0;
         while($run) {
             foreach ($this->repository->findBy(array(),array('updatedAt', 'desc')) as $project) {
                 $this->process($project);
             }
 
-            $run = false;
+            if ($runs++ > 100) {
+                $run = true;
+            } else {
+                sleep(60);
+            }
         }
     }
 

@@ -12,3 +12,18 @@ applications:
   - src/
   - web/
   memory: 512M
+- name: api-ci-worker
+  buildpack: https://github.com/dmikusa-pivotal/cf-php-build-pack.git
+  services:
+  - api-ci-mongodb
+  paths:
+  - composer.json
+  - composer.lock
+  - app/
+  - app/config/parameters.yml.dist
+  - src/
+  - app.php
+  memory: 512M
+  no-route: true
+  env:
+    BP_DEBUG: "True"

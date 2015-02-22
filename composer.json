@@ -63,7 +63,10 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
             "Braincrafted\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::install",
-            "./app/console assetic:dump"
+            "./app/console assetic:dump",
+            "cp vendor/sami/sami/Sami/Resources/themes/default/css/bootstrap-theme.min.css web/css",
+            "cp vendor/sami/sami/Sami/Resources/themes/default/css/sami.css web/css",
+            "cp vendor/sami/sami/Sami/Resources/themes/default/js/typeahead.min.js web/js"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
@@ -73,7 +76,10 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
             "Braincrafted\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::install",
-            "./app/console assetic:dump"
+            "./app/console assetic:dump",
+            "cp vendor/sami/sami/Sami/Resources/themes/default/css/bootstrap-theme.min.css web/css",
+            "cp vendor/sami/sami/Sami/Resources/themes/default/css/sami.css web/css",
+            "cp vendor/sami/sami/Sami/Resources/themes/default/js/typeahead.min.js web/js"
         ]
     },
     "config": {

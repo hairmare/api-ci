@@ -7,12 +7,12 @@
 
     {% block head %}
         <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="{{ path('css/bootstrap-theme.min.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ path('css/sami.css') }}">
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/sami.css">
         <script src="/js/jquery.js"></script>
         <script src="/js/bootstrap.js"></script>
-        <script src="{{ path('js/typeahead.min.js') }}"></script>
         <script src="{{ path('sami.js') }}"></script>
+        <script src="/js/typeahead.min.js"></script>
     {% endblock %}
 
     {% if project.config('favicon') %}

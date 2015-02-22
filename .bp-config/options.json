@@ -7,5 +7,10 @@
   "PHP_EXTENSIONS": ["bz2", "zlib", "curl", "mongo", "openssl", "mbstring"],
   "WEBDIR": "web",
   "LIBDIR": ".",
-  "ZEND_EXTENSIONS": ["xdebug"]
+  "APP_START_CMD": "app/console app:work",
+  "ZEND_EXTENSIONS": ["xdebug"],
+  "ADDITIONAL_PREPROCESS_CMDS": [
+    "php app/console doctrine:mongodb:mapping:info",
+    "echo 'Starting app next....'"
+  ]
 }

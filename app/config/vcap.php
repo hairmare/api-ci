@@ -1,10 +1,16 @@
 <?php
 
-$vcap = getenv('SYMFONY__VCAP__SERVICES');
+$vcap = getenv('VCAP_SERVICES');
+if (empty($vcap)) {
+    $vcap = getenv('SYMFONY__VCAP__SERVICES');
+}
 
 use Graviton\Vcap\Loader;
 
 if (!empty($vcap)) {
+    // this next line is clearly a hack
+    $container->setParameter('sami_cmd', '/home/vcap/app/php/bin/php /home/vcap/app/php/bin/sami.php update /home/vcap/app/sami.config.php -vvv --force');
+
     $loader = new Loader;
     $loader->setInput($vcap);
 
