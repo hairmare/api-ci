@@ -10,14 +10,14 @@ use AppBundle\Document\DocumentationFile;
 
 class Worker
 {
-    public function __construct(DocumentRepository $repository, DocumentManager $dm, Git $git, $stageDir, $targetDir, $samiCmd)
+    public function __construct(DocumentRepository $repository, DocumentManager $dm, Git $git, $stageDir, $targetDir, $cacheDir, $samiCmd)
     {
         $this->repository = $repository;
         $this->dm = $dm;
         $this->git = $git;
         $this->stageDir = $stageDir;
         $this->targetDir = $targetDir;
-        $this->cacheDir = $targetDir.'/cache';
+        $this->cacheDir = $cacheDir;
         $this->samiCmd = $samiCmd;
     }
     public function run()
@@ -43,7 +43,7 @@ class Worker
         $userDir = implode('/', array($this->stageDir, $project->getOwner()->getUsername()));
         $stageDir = implode('/', array($userDir, $project->getName()));
 
-        $userTargetDir = implode('/', array($this->cacheDir, $project->getOwner()->getUsername()));
+        $userTargetDir = implode('/', array($this->targetDir, $project->getOwner()->getUsername()));
         $targetDir = implode('/', array($userTargetDir, $project->getName()));
 
         $userCacheDir = implode('/', array($this->cacheDir, $project->getOwner()->getUsername()));
@@ -89,7 +89,7 @@ class Worker
         foreach ($iterator AS $file) {
             if ($file->isFile() && $file->getFilename() !== '.html') {
                 $parts = explode('/', str_replace($this->targetDir.'/', '', $file->getPathname()));
-                array_key_exists(3, $parts) && $versions[$parts[3]] = true;
+                array_key_exists(2, $parts) && $versions[$parts[2]] = true;
 
                 $file = new \Symfony\Component\HttpFoundation\File\File($file);
 

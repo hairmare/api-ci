@@ -6,7 +6,7 @@ app/cache/*
 composer.phar
 app/config/parameters.yml
 web/bundles/
-web/docs
+app/docs
 app/stage
 bin/sami.php
 web/css/

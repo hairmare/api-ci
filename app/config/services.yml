@@ -2,7 +2,8 @@
 # http://symfony.com/doc/current/book/service_container.html
 parameters:
     worker_stage_dir: %kernel.root_dir%/stage
-    worker_target_dir: %kernel.root_dir%/../web/docs
+    worker_target_dir: %kernel.root_dir%/docs
+    worker_cache_dir: %kernel.root_dir%/cache/%kernel.environment%
     sami_cmd: 'php ../../../../bin/sami.php update ../../../../sami.config.php'
 
 services:
@@ -17,6 +18,7 @@ services:
             - @git
             - %worker_stage_dir%
             - %worker_target_dir%
+            - %worker_cache_dir%
             - %sami_cmd%
 
     documentation_file.repository:

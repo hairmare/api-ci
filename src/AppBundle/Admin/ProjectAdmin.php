@@ -26,9 +26,9 @@ class ProjectAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('name')
             ->add('githubName')
             ->add('owner')
+            ->add('name')
         ;
     }
 
@@ -36,7 +36,9 @@ class ProjectAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->addIdentifier('owner')
             ->addIdentifier('name')
+            ->addIdentifier('githubName')
         ;
     }
 }
