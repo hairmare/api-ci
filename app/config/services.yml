@@ -35,6 +35,13 @@ services:
         arguments:
             - 'AppBundle:Project'
 
+    testimonial.repository:
+        class: Doctrine\ODM\MongoDB\DocumentRepository
+        factory_service: doctrine_mongodb
+        factory_method:  getRepository
+        arguments:
+            - 'AppBundle:Testimonial'
+
     sonata.admin.project:
         class: AppBundle\Admin\ProjectAdmin
         tags:
@@ -45,6 +52,12 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [AppBundle]]
+
+    app.admin.testimonial:
+        class: AppBundle\Admin\TestimonialAdmin
+        arguments: [~, AppBundle\Document\Testimonial, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: doctrine_mongodb, group: "Content", label: Testimonial}
 
     app.menu_builder:
         class: AppBundle\Menu\Builder

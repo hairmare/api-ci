@@ -12,12 +12,13 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+        $repository = $this->container->get('testimonial.repository');
+        $testimonials = array();
+        foreach ($repository->findBy(array(), null, 3) as $testimonial) {
+            $testimonials[] = array('text' => $testimonial->getText(), 'author' => $testimonial->getAuthor());
+        }
         return $this->render('default/index.html.twig', array(
-            'testimonials' => array(
-                array('text' => 'Sooper Stuff', 'author' => 'Mr Herpsson'),
-                array('text' => 'Sooper Stuff', 'author' => 'Mr Herpsson'),
-                array('text' => 'Sooper Stuff', 'author' => 'Mr Herpsson'),
-            )
+            'testimonials' => $testimonials,
         ));
     }
 

@@ -3,43 +3,35 @@
 namespace AppBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class ProjectAdmin extends Admin
+class TestimonialAdmin extends Admin
 {
-    protected $baseRouteName = 'sonata_project';
-    protected $baseRoutePattern = 'project';
+    protected $baseRouteName = 'sonata_testimonial';
+    protected $baseRoutePattern = 'testimonial';
 
-    // Fields to be shown on create/edit forms
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        $formMapper
-            ->add('name', 'text', array('label' => 'Project Name'))
-            ->add('githubName', 'text', array('label' => 'Name on github as <user>/<repo> string'))
-            ->add('owner')
-        ;
-    }
-
-    // Fields to be shown on filter forms
+    /**
+     * @param DatagridMapper $datagridMapper
+     */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('githubName')
-            ->add('owner')
-            ->add('name')
+            ->add('text')
+            ->add('author')
         ;
     }
 
-    // Fields to be shown on lists
+    /**
+     * @param ListMapper $listMapper
+     */
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('owner')
-            ->add('name')
-            ->add('githubName')
+            ->add('text')
+            ->add('author')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -47,6 +39,17 @@ class ProjectAdmin extends Admin
                     'delete' => array(),
                 )
             ))
+        ;
+    }
+
+    /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->add('text', 'text', array('label' => 'Testimonial'))
+            ->add('author', 'text', array('label' => 'Attribution'))
         ;
     }
 
@@ -59,9 +62,9 @@ class ProjectAdmin extends Admin
             ->add('id')
             ->add('createdAt')
             ->add('updatedAt')
-            ->add('owner')
-            ->add('name')
-            ->add('githubName')
+            ->add('text')
+            ->add('author')
+            ->add('random')
         ;
     }
 }
