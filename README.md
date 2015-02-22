@@ -1,7 +1,20 @@
 # API CI
 
-Continuous API-doc buidling for you internal docs.
+Continuous API-doc building for your internal docs.
 
-## TODO
+Install on cloudfoundry like so.
 
-* [ ] find a way to run workers in cloud (ie app/console app:work:start and a small status webapp for workers)
+```bash
+cf cs api-ci-mongodb
+cf push api-ci
+sh push-worker.sh
+```
+
+Then connect your dev instance to the cloudy mongodb
+and add a user.
+
+```bash
+php app/console fos:user:create test test@example.com password
+php app/console for:user:promote test ROLE_SUPER_ADMIN
+```
+
