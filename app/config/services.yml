@@ -46,7 +46,7 @@ services:
 
     app.menu_builder:
         class: AppBundle\Menu\Builder
-        arguments: ["@knp_menu.factory"]
+        arguments: ["@knp_menu.factory", "@project.repository", "@security.context"]
 
     app.main_menu:
         class: Knp\Menu\MenuItem # the service definition requires setting the class
@@ -55,3 +55,11 @@ services:
         arguments: ["@request_stack"]
         tags:
             - { name: knp_menu.menu, alias: main } # The alias is what is used to retrieve the menu
+
+    app.navbar_right_menu:
+        class: Knp\Menu\MenuItem # the service definition requires setting the class
+        factory_service: app.menu_builder
+        factory_method: createNavbarRightMenu
+        arguments: ["@request_stack"]
+        tags:
+            - { name: knp_menu.menu, alias: navbarRight }

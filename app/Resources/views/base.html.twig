@@ -23,12 +23,13 @@
                 </div>
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     {{ knp_menu_render('main', { 'style': 'navbar' }) }}
+                    {{ knp_menu_render('navbarRight', { 'style': 'navbar-right' }) }}
                 </div>
             </nav>
             {% block body %}{% endblock %}
         </div>
+        {% block javascripts %}{% endblock %}
         <script src="{{ asset('js/jquery.js') }}"></script>
         <script src="{{ asset('js/bootstrap.js') }}"></script
-        {% block javascripts %}{% endblock %}
     </body>
 </html>
