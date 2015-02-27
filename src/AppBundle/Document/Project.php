@@ -6,6 +6,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  * @MongoDB\Document(repositoryClass="ProjectRepository")
+ * @MongoDB\HasLifecycleCallbacks
  */
 class Project
 {
@@ -50,6 +51,11 @@ class Project
      * @MongoDB\Hash
      */
     protected $versions = array();
+
+    /**
+     * @MongoDB\Field(type="boolean")
+     */
+    protected $needsUpdate = true;
 
     /**
      * @MongoDB\ReferenceMany(targetDocument="DocumentationFile")
@@ -289,5 +295,27 @@ class Project
     public function getVersions()
     {
         return $this->versions;
+    }
+
+    /**
+     * Set needsUpdate
+     *
+     * @param boolean $needsUpdate
+     * @return self
+     */
+    public function setNeedsUpdate($needsUpdate)
+    {
+        $this->needsUpdate = $needsUpdate;
+        return $this;
+    }
+
+    /**
+     * Get needsUpdate
+     *
+     * @return boolean $needsUpdate
+     */
+    public function getNeedsUpdate()
+    {
+        return $this->needsUpdate;
     }
 }

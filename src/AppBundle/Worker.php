@@ -7,14 +7,16 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use PHPGit\Git;
 use Symfony\Component\Process\Process;
 use AppBundle\Document\DocumentationFile;
+use Psr\Log\LoggerInterface;
 
 class Worker
 {
-    public function __construct(DocumentRepository $repository, DocumentManager $dm, Git $git, $stageDir, $targetDir, $cacheDir, $samiCmd)
+    public function __construct(DocumentRepository $repository, DocumentManager $dm, Git $git, LoggerInterface $logger, $stageDir, $targetDir, $cacheDir, $samiCmd)
     {
         $this->repository = $repository;
         $this->dm = $dm;
         $this->git = $git;
+        $this->logger = $logger;
         $this->stageDir = $stageDir;
         $this->targetDir = $targetDir;
         $this->cacheDir = $cacheDir;
@@ -31,12 +33,12 @@ class Worker
         $run = true;
         $runs = 0;
         while($run) {
-            foreach ($this->repository->findBy(array(),array('updatedAt', 'desc')) as $project) {
+            foreach ($this->repository->getPendingProjects() as $project) {
                 $this->process($project);
             }
 
             if ($runs++ > 100) {
-                $run = true;
+                $run = false;
             } else {
                 sleep(60);
             }
@@ -93,6 +95,7 @@ class Worker
         $versions = array();
         foreach ($iterator AS $file) {
             if ($file->isFile()) {
+                $this->logger->info(sprintf('processing file %s', $file->getPathname()));
                 $parts = explode('/', str_replace($this->targetDir.'/', '', $file->getPathname()));
                 array_key_exists(2, $parts) && $versions[$parts[2]] = true;
 
@@ -114,9 +117,11 @@ class Worker
                 $project->addDocFile($docFile);
             }
         }
+        $this->logger->info(sprintf('done with %s', $project->getGithubName()));
         unset($versions['develop']);
         $versions['develop'] = true;
         $project->setVersions(array_keys($versions));
+        $project->setNeedsUpdate(false);
         $this->dm->flush();
     }
 }
