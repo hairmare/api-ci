@@ -8,6 +8,7 @@ use PHPGit\Git;
 use Symfony\Component\Process\Process;
 use AppBundle\Document\DocumentationFile;
 use Psr\Log\LoggerInterface;
+use Naneau\SemVer\Sort;
 
 class Worker
 {
@@ -97,12 +98,30 @@ class Worker
             if ($file->isFile()) {
                 $this->logger->info(sprintf('processing file %s', $file->getPathname()));
                 $parts = explode('/', str_replace($this->targetDir.'/', '', $file->getPathname()));
-                array_key_exists(2, $parts) && $versions[$parts[2]] = true;
+
+                if (array_key_exists(2, $parts)) {
+                    $version = $parts[2];
+                    $prefix = $project->getTagPrefix();
+                    if (substr($version, 0, strlen($prefix)) == $prefix) {
+                        $version = substr($version, strlen($prefix));
+                    }
+                    $versions[$version] = true;
+                }
 
                 $file = new \Symfony\Component\HttpFoundation\File\File($file);
+                $name = str_replace($this->targetDir.'/', '', $file->getPathname());
 
-                $docFile = new DocumentationFile;
-                $docFile->setName(str_replace($this->targetDir.'/', '', $file->getPathname()));
+                $docFile = $this->dm
+                    ->createQueryBuilder('AppBundle\Document\DocumentationFile')
+                    ->findAndRemove()
+                    ->field('name')->equals($name)
+                    ->getQuery()
+                    ->execute();
+                if (!$docFile) {
+                    $docFile = new DocumentationFile;
+                }
+
+                $docFile->setName($name);
 
                 $mimeType = $file->getMimeType();
                 if ($file->getExtension() == 'js') {
@@ -115,12 +134,18 @@ class Worker
 
                 $this->dm->persist($docFile);
                 $project->addDocFile($docFile);
+                $this->dm->flush();
             }
         }
         $this->logger->info(sprintf('done with %s', $project->getGithubName()));
         unset($versions['develop']);
-        $versions['develop'] = true;
-        $project->setVersions(array_keys($versions));
+        $versions = array_keys($versions);
+        $realVersions = array();
+        foreach (Sort::sort($versions) as $version) {
+            $realVersions[] = $project->getTagPrefix().$version;
+        }
+        $realVersions[] = 'develop';
+        $project->setVersions($realVersions);
         $project->setNeedsUpdate(false);
         $this->dm->flush();
     }
