@@ -82,7 +82,7 @@ class Worker
             mkdir($targetDir);
         }
         $process = new Process($this->samiCmd, $stageDir, array('STAGE_DIR' => $stageDir, 'TARGET_DIR' => $targetDir, 'CACHE_DIR' => $cacheDir));
-        $process->run(function ($type, $buffer) {
+        $process->run(function ($type, $buffer) use ($project) {
             if (Process::ERR === $type) {
                 $log = 'ERR > '.$buffer;
             } else {
