@@ -24,7 +24,6 @@ class Builder
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttributes(array('class' => 'nav navbar-nav'));
 
-        $menu->addChild('Home', array('route' => 'homepage'));
 
         $menu->addChild('Recently Generated Docs', array('route' => 'about'));
 
@@ -52,15 +51,20 @@ class Builder
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttributes(array('class' => 'nav navbar-nav navbar-right'));
 
+        $menu->addChild('Home', array('route' => 'homepage', 'label' => ''))
+                ->setLinkAttribute('class', 'glyphicon glyphicon-home');
+
         if ($this->security->isGranted(array('ROLE_ADMIN'))) {
-            $menu->addChild('Admin', array('route' => 'sonata_admin_redirect'));
+            $menu->addChild('Admin', array('route' => 'sonata_admin_redirect', 'label' => ''))
+                ->setLinkAttribute('class', 'glyphicon glyphicon-wrench');
         }
 
         if ($this->security->isGranted(array('ROLE_USER'))) {
-            $menu->addChild('Logout', array('route' => 'sonata_user_security_logout'));
+            $menu->addChild('Logout', array('route' => 'sonata_user_security_logout', 'label' => ''))
+                ->setLinkAttribute('class', 'glyphicon glyphicon-log-out');
         } else {
-            $menu->addChild('Login', array('route' => 'sonata_user_security_login'));
-            $menu->addChild('Register', array('route' => 'sonata_user_registration_register'));
+            $menu->addChild('Login', array('route' => 'sonata_user_security_login', 'label' => ''))
+                ->setLinkAttribute('class', 'glyphicon glyphicon-log-in');
         }
 
         return $menu;
