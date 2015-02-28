@@ -46,7 +46,8 @@
         "jquery/jquery": "1.11.*",
         "oyejorge/less.php": "~1.5",
         "knplabs/knp-menu-bundle": "~2",
-        "graviton/vcap-config-loader": "~0.2"
+        "graviton/vcap-config-loader": "~0.2",
+        "naneau/semver": "0.0.7.*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

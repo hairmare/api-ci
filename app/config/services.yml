@@ -16,6 +16,7 @@ services:
             - @project.repository
             - @doctrine_mongodb.odm.default_document_manager
             - @git
+            - @logger
             - %worker_stage_dir%
             - %worker_target_dir%
             - %worker_cache_dir%
