@@ -42,6 +42,7 @@ class ProjectAdmin extends Admin
             ->add('owner')
             ->add('name')
             ->add('githubName')
+            ->add('needsUpdate', null, array('editable' => true))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
