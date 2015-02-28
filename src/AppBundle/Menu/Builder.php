@@ -33,7 +33,7 @@ class Builder
         $menu['Recently Generated Docs']->setChildrenAttributes(array('class' => 'dropdown-menu'));
 
         foreach ($this->repository->getRecentProjects() as $project) {
-            $menu['Recently Generated Docs']->addChild($project->getName(), array(
+            $menu['Recently Generated Docs']->addChild(sprintf('%s/%s', $project->getOwner()->getUsername(), $project->getName()), array(
                 'route' => 'project',
                 'routeParameters' => array('owner' => $project->getOwner()->getUsername(), 'project' => $project->getName()
             )));

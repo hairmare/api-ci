@@ -56,7 +56,7 @@ class DefaultController extends Controller
         $projects = array();
         foreach ($repository->getRecentProjects(50) as $project) {
             $projects[] = array(
-                'name' => $project->getName(),
+                'name' => sprintf('%s/%s', $project->getOwner()->getUsername(), $project->getName()),
                 'href' => $this->container->get('router')->generate('project', array(
                     'owner' => $project->getOwner()->getUsername(),
                     'project' => $project->getName()
