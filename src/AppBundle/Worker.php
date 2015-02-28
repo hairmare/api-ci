@@ -35,12 +35,15 @@ class Worker
         $runs = 0;
         while($run) {
             foreach ($this->repository->getPendingProjects() as $project) {
+                printf("Processing %s/%s\n", $project->getOwner()->getUsername(), $project->getName());
                 $this->process($project);
+                printf("Finished %s/%s\n", $project->getOwner()->getUsername(), $project->getName());
             }
 
             if ($runs++ > 100) {
                 $run = false;
             } else {
+                echo "waiting...\n";
                 sleep(60);
             }
         }
@@ -81,6 +84,7 @@ class Worker
         if (!is_dir($targetDir)) {
             mkdir($targetDir);
         }
+        $project->setLastLogs(array());
         $process = new Process($this->samiCmd, $stageDir, array('STAGE_DIR' => $stageDir, 'TARGET_DIR' => $targetDir, 'CACHE_DIR' => $cacheDir));
         $process->run(function ($type, $buffer) use ($project) {
             if (Process::ERR === $type) {
