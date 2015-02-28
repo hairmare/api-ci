@@ -71,7 +71,26 @@ class DefaultController extends Controller
      */
     public function ownerAction($owner)
     {
-        return $this->render('default/owner.html.twig');
+        $repository = $this->container->get('project.repository');
+        $users = $this->container
+            ->get('doctrine_mongodb.odm.document_manager')
+            ->createQueryBuilder('Application\Sonata\UserBundle\Document\User')
+            ->field('username')->equals($owner)
+            ->getQuery()
+            ->execute();
+        foreach ($users as $u) {
+            $user = $u;
+        }
+
+        $projects = array();
+        foreach ($repository->getByUser($user) as $project) {
+            $projects[] = array(
+                'name' => sprintf('%s/%s', $project->getOwner()->getUsername(), $project->getName()),
+                'href' => $this->container->get('router')->generate('project', array('owner' => $project->getOwner()->getUsername(), 'project' => $project->getName())),
+            );
+        }
+            
+        return $this->render('default/owner.html.twig', array('projects' => $projects));
     }
 
     /**
