@@ -20,8 +20,8 @@ class ProjectAdmin extends Admin
             ->add('name', 'text', array('label' => 'Project Name'))
             ->add('githubName', 'text', array('label' => 'Name on github as <user>/<repo> string'))
             ->add('owner')
-            ->add('needsUpdate')
-            ->add('tagPrefix')
+            ->add('needsUpdate', null, array('required' => false))
+            ->add('tagPrefix', null, array('required' => false))
         ;
     }
 
@@ -66,6 +66,9 @@ class ProjectAdmin extends Admin
             ->add('githubName')
             ->add('needsUpdate')
             ->add('tagPrefix')
+            ->add('masterVersion')
+            ->add('versions', 'array')
+            ->add('lastLogs', 'array')
         ;
     }
 }

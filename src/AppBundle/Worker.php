@@ -84,10 +84,12 @@ class Worker
         $process = new Process($this->samiCmd, $stageDir, array('STAGE_DIR' => $stageDir, 'TARGET_DIR' => $targetDir, 'CACHE_DIR' => $cacheDir));
         $process->run(function ($type, $buffer) {
             if (Process::ERR === $type) {
-                echo 'ERR > '.$buffer;
+                $log = 'ERR > '.$buffer;
             } else {
-                echo 'OUT > '.$buffer;
+                $log = 'OUT > '.$buffer;
             }
+            $project->addLastLog($log);
+            $this->dm->flush();
         });
 
         $directory = new \RecursiveDirectoryIterator($targetDir);

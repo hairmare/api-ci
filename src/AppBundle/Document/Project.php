@@ -68,6 +68,11 @@ class Project
     protected $docFiles;
 
     /**
+     * @MongoDB\Hash
+     */
+    protected $lastLogs = array();
+
+    /**
      * Hook on pre-persist operations
      * @MongoDB\PrePersist
      */
@@ -344,5 +349,39 @@ class Project
     public function getTagPrefix()
     {
         return $this->tagPrefix;
+    }
+
+    /**
+     * Set lastLogs
+     *
+     * @param hash $lastLogs
+     * @return self
+     */
+    public function setLastLogs($lastLogs)
+    {
+        $this->lastLogs = $lastLogs;
+        return $this;
+    }
+
+    /**
+     * Add log to lastLogs
+     *
+     * @param string $log
+     * @return self
+     */
+    public function addLastLog($log)
+    {
+        $this->lastLogs[] = $log;
+        return $this;
+    }
+
+    /**
+     * Get lastLogs
+     *
+     * @return hash $lastLogs
+     */
+    public function getLastLogs()
+    {
+        return $this->lastLogs;
     }
 }
