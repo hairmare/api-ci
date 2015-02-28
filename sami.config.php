@@ -16,6 +16,8 @@ $iterator = Finder::create()
     ->exclude('Resources')
     ->exclude('Tests')
     ->exclude('Test')
+    ->exclude('app')
+    ->exclude('bin')
     ->in($stageDir)
 ;
 

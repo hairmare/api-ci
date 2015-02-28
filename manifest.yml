@@ -11,7 +11,7 @@ applications:
   - app/config/parameters.yml.dist
   - src/
   - web/
-  memory: 512M
+  memory: 128M
 - name: api-ci-worker
   buildpack: https://github.com/dmikusa-pivotal/cf-php-build-pack.git
   services:
@@ -25,5 +25,3 @@ applications:
   - app.php
   memory: 512M
   no-route: true
-  env:
-    BP_DEBUG: "True"

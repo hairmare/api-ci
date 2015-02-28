@@ -6,11 +6,18 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  * @MongoDB\Document
+ * @MongoDB\HasLifecycleCallbacks
  */
 class DocumentationFile
 {
     /**
-     * @MongoDB\Id(strategy="none")
+     * @MongoDB\Id(strategy="auto")
+     */
+    protected $id;
+
+    /**
+     * @MongoDB\Field(type="string")
+     * @MongoDB\Index(unique=true)
      */
     protected $name;
 
@@ -163,5 +170,15 @@ class DocumentationFile
     public function getMimeType()
     {
         return $this->mimeType;
+    }
+
+    /**
+     * Get id
+     *
+     * @return id $id
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

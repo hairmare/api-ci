@@ -3,7 +3,10 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Serializer\Encoder\JsonDecode;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends Controller
 {
@@ -32,7 +35,7 @@ class DefaultController extends Controller
 
 
     /**
-     * @Route("/api/{path}", name="api_docs", requirements={"path"=".+"})
+     * @Route("/d/{path}", name="api_docs", requirements={"path"=".+"})
      */
     public function fileAction($path)
     {
@@ -53,7 +56,7 @@ class DefaultController extends Controller
         $projects = array();
         foreach ($repository->getRecentProjects(50) as $project) {
             $projects[] = array(
-                'name' => $project->getName(),
+                'name' => sprintf('%s/%s', $project->getOwner()->getUsername(), $project->getName()),
                 'href' => $this->container->get('router')->generate('project', array(
                     'owner' => $project->getOwner()->getUsername(),
                     'project' => $project->getName()
@@ -64,15 +67,34 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/{owner}", name="owner")
+     * @Route("/u/{owner}", name="owner")
      */
     public function ownerAction($owner)
     {
-        return $this->render('default/owner.html.twig');
+        $repository = $this->container->get('project.repository');
+        $users = $this->container
+            ->get('doctrine_mongodb.odm.document_manager')
+            ->createQueryBuilder('Application\Sonata\UserBundle\Document\User')
+            ->field('username')->equals($owner)
+            ->getQuery()
+            ->execute();
+        foreach ($users as $u) {
+            $user = $u;
+        }
+
+        $projects = array();
+        foreach ($repository->getByUser($user) as $project) {
+            $projects[] = array(
+                'name' => sprintf('%s/%s', $project->getOwner()->getUsername(), $project->getName()),
+                'href' => $this->container->get('router')->generate('project', array('owner' => $project->getOwner()->getUsername(), 'project' => $project->getName())),
+            );
+        }
+            
+        return $this->render('default/owner.html.twig', array('projects' => $projects));
     }
 
     /**
-     * @Route("/{owner}/{project}", name="project")
+     * @Route("/p/{owner}/{project}", name="project")
      */
     public function projectAction($owner, $project)
     {
@@ -98,5 +120,30 @@ class DefaultController extends Controller
             ),
             'versions' => $versions
         ));
-     }
+    }
+
+    /**
+     * @Route("/webhook", name="webhook")
+     * @Method({"POST"})
+     */
+    public function webhookAction()
+    {
+        $decoder = new JsonDecode;
+        $content = $this->get("request")->getContent();
+
+        $data = $decoder->decode($content, 'json');
+
+        $githubName = $data->repository->full_name;
+
+        $repository = $this->container->get('project.repository');
+        $project = $repository->findOneBy(array('githubName' => $githubName));
+
+        $project->setNeedsUpdate(true);
+
+        $dm = $this->container->get('doctrine_mongodb.odm.document_manager');
+        $dm->persist($project);
+        $dm->flush();
+
+        return new JsonResponse("OK");
+    }
 }

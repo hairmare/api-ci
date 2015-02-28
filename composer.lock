@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "132e89bcfd54d4838e6dd517e4b9340a",
+    "hash": "0ba6679431d2878f2e2a922018d8bdff",
     "packages": [
         {
             "name": "braincrafted/bootstrap-bundle",
@@ -1728,6 +1728,53 @@
                 "psr-3"
             ],
             "time": "2014-12-29 21:29:35"
+        },
+        {
+            "name": "naneau/semver",
+            "version": "0.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/naneau/semver.git",
+                "reference": "60ea59641aad840f97f3c9057e2f2b7bc087eaa3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/naneau/semver/zipball/60ea59641aad840f97f3c9057e2f2b7bc087eaa3",
+                "reference": "60ea59641aad840f97f3c9057e2f2b7bc087eaa3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Naneau\\SemVer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Maurice Fonk",
+                    "email": "maurice@naneau.net",
+                    "homepage": "http://mauricefonk.com",
+                    "role": "developer"
+                }
+            ],
+            "description": "A decent, standards-compliant, Semantic Versioning (SemVer) parser and library",
+            "homepage": "https://github.com/naneau/semver",
+            "keywords": [
+                "semantic",
+                "semver",
+                "versioning"
+            ],
+            "time": "2013-01-04 00:00:00"
         },
         {
             "name": "nelmio/api-doc-bundle",
