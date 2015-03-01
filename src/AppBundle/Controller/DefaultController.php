@@ -118,9 +118,11 @@ class DefaultController extends Controller
                 'owner' => array(
                     'name' => $project->getOwner()->getUsername(),
                     'href' => $this->container->get('router')->generate('owner', array('owner' => $project->getOwner()->getUsername()))
-                )
+                ),
+                'updated_at' => $project->getUpdatedAt(),
+                'needs_update' => $project->getNeedsUpdate(),
             ),
-            'versions' => $versions
+            'versions' => array_reverse($versions)
         ));
     }
 

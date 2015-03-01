@@ -1,8 +1,21 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+    <script src="/js/moment.js"></script>
+    <script>
+        $('time.time-from-now').each(function(pos, element) {
+            projectUpdate = element.getAttribute('datetime');
+            element.innerText = moment(projectUpdate).local().fromNow();
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
-    <h2>{{ project.name }}</h2>
-    by: <a href="{{project.owner.href }}">{{ project.owner.name }}</a>
+    <h2><a href="{{project.owner.href }}">{{ project.owner.name }}</a>/{{ project.name }}</h2>
+    <p>updated <time class="time-from-now" datetime="{{ project.updated_at|date("Y-m-d H:i:s") }}"></time></p>
+    {% if project.needs_update %}
+        <span class="label label-warning">Needs Build</span>
+    {% endif %}
     <h3>Versions</h3>
     <ul>
     {% for version in versions %}
