@@ -47,7 +47,8 @@
         "oyejorge/less.php": "~1.5",
         "knplabs/knp-menu-bundle": "~2",
         "graviton/vcap-config-loader": "~0.2",
-        "naneau/semver": "0.0.7.*"
+        "naneau/semver": "0.0.7.*",
+        "moment/moment": "~2.9"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
@@ -67,7 +68,8 @@
             "./app/console assetic:dump",
             "cp vendor/sami/sami/Sami/Resources/themes/default/css/bootstrap-theme.min.css web/css",
             "cp vendor/sami/sami/Sami/Resources/themes/default/css/sami.css web/css",
-            "cp vendor/sami/sami/Sami/Resources/themes/default/js/typeahead.min.js web/js"
+            "cp vendor/sami/sami/Sami/Resources/themes/default/js/typeahead.min.js web/js",
+            "cp components/moment/min/moment.min.js web/js/moment.js"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
@@ -80,7 +82,8 @@
             "./app/console assetic:dump",
             "cp vendor/sami/sami/Sami/Resources/themes/default/css/bootstrap-theme.min.css web/css",
             "cp vendor/sami/sami/Sami/Resources/themes/default/css/sami.css web/css",
-            "cp vendor/sami/sami/Sami/Resources/themes/default/js/typeahead.min.js web/js"
+            "cp vendor/sami/sami/Sami/Resources/themes/default/js/typeahead.min.js web/js",
+            "cp components/moment/min/moment.min.js web/js/moment.js"
         ]
     },
     "config": {

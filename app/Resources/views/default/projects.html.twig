@@ -1,15 +1,27 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+    <script src="/js/moment.js"></script>
+    <script>
+        $('time.time-from-now').each(function(pos, element) {
+            projectUpdate = element.getAttribute('datetime');
+            element.innerText = moment(projectUpdate).local().fromNow();
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
     <table class="table">
         <thead>
             <tr>
                 <th>Name</th>
+                <th>Last Update</th>
             </tr>
         </thead>
         {% for project in projects %}
             <tr>
                 <td><a href="{{ project.href }}">{{ project.name }}</a></td>
+                <td><time class="time-from-now" datetime="{{ project.updated_at|date("Y-m-d H:i:s") }}"></time></td>
             </tr>
         {% endfor %}
     </table>

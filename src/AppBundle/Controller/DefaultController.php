@@ -60,7 +60,8 @@ class DefaultController extends Controller
                 'href' => $this->container->get('router')->generate('project', array(
                     'owner' => $project->getOwner()->getUsername(),
                     'project' => $project->getName()
-                ))
+                )),
+                'updated_at' => $project->getUpdatedAt()
             );
         }
         return $this->render('default/projects.html.twig', array('projects' => $projects));
@@ -87,6 +88,7 @@ class DefaultController extends Controller
             $projects[] = array(
                 'name' => sprintf('%s/%s', $project->getOwner()->getUsername(), $project->getName()),
                 'href' => $this->container->get('router')->generate('project', array('owner' => $project->getOwner()->getUsername(), 'project' => $project->getName())),
+                'updated_at' => $project->getUpdatedAt()
             );
         }
             
