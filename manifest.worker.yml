@@ -1,6 +1,6 @@
 ---
 applications:
-- name: api-ci
+- name: api-ci-worker
   buildpack: https://github.com/dmikusa-pivotal/cf-php-build-pack.git
   services:
   - api-ci-mongodb
@@ -10,5 +10,6 @@ applications:
   - app/
   - app/config/parameters.yml.dist
   - src/
-  - web/
-  memory: 128M
+  - app.php
+  memory: 512M
+  no-route: true

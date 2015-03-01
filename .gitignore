@@ -14,3 +14,4 @@ web/js/
 bin/lessc
 web/fonts/
 components/
+deploy.local.sh
